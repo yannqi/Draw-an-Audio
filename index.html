@@ -1,0 +1,658 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+    <title>Draw an Audio</title>
+    <meta charset="utf-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" />
+    </noscript>
+
+    <script async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+    <script type="module" src="./assets/model-viewer.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./assets/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/slick/slick-theme.css" />
+    <!-- 现代化的CSS框架 -->
+    <!-- <link rel="stylesheet" href="./assets/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="./assets/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./assets/css/bulma-slider.min.css">
+    <!-- 加载字体样式 -->
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./assets/css/index.css">
+
+    <script src="./assets/js/index.js"></script>
+
+</head>
+
+<body>
+
+
+    <!-- <div id="wrapper" class="divided"> -->
+
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <div style="display: flex; align-items: flex-start;"></div>
+                        <h2 class="title is-1 publication-title">Draw an Audio: Leveraging Multi-Instruction for Video-to-Audio Synthesis</h2>
+
+                        <!-- Accepted Notification End -->
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+                                <a href="https://yannqi.github.io/">Qi Yang</a><sup>1</sup>,</span>
+                            <span class="author-block">
+                                Binjie Mao<sup>2</sup>,</span>
+                            <span class="author-block">
+                                Zili Wang<sup>1</sup>,</span>
+                            <span class="author-block">
+                                Xing Nie<sup>1</sup>,</span>
+                            <span class="author-block">
+                                Pengfei Gao<sup>2</sup>,</span>
+                            <span class="author-block">
+                                Ying Guo<sup>2</sup>,</span>
+                            <span class="author-block">
+                                Cheng Zhen<sup>2</sup>,</span>
+                            <span class="author-block">
+                                Pengfei Yan<sup>2</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://people.ucas.ac.cn/~xiangshiming">Shiming Xiang</a><sup>1</sup></span>
+                        </div>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block"><sup>1</sup>Institute of Automation, Chinese Academy of Sciences,</span>
+                            <span class="author-block"><sup>2</sup>Meituan</span>
+                        </div>
+                        <div class="columns is-centered">
+                            <div class="column has-text-centered">
+                                <div class="publication-links">
+                                    <!-- PDF Link. -->
+                                    <span class="link-block">
+                                        <a href="https://github.com/yannqi/Draw-an-Audio" class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon">
+                                                <i class="fas fa-file-pdf"></i>
+                                            </span>
+                                            <span>Paper</span>
+                                        </a>
+                                    </span>
+                                    <span class="link-block">
+                                        <a href="https://github.com/yannqi/Draw-an-Audio" class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon">
+                                                <i class="ai ai-arxiv"></i>
+                                            </span>
+                                            <span>arXiv</span>
+                                        </a>
+                                    </span>
+                                    <span class="link-block">
+                                        <a href="https://github.com/yannqi/Draw-an-Audio" class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon">
+                                                <i class="fab fa-github"></i>
+                                            </span>
+                                            <span>Code (coming soon)</span>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- <section class="section">
+					<div class="container is-max-desktop">
+						<div class="inner">
+						<div class="text">
+							<div class="wrapper style1 align-center">
+								
+									<h3>Abstract</h3>
+								
+					
+					<div class="wrapper style1 align-center" style="width: 50%; margin: 0 auto;">
+					<p class="title is-4 has-text-centered">
+						Foley is a term commonly used in filmmaking, referring to the addition of daily sound effects to silent films or videos to enhance the auditory experience. Video-to-Audio (V2A), as a particular type of automatic foley task, presents inherent challenges related to audio-visual synchronization. These challenges encompass maintaining the content consistency between the input video and the generated audio, as well as the alignment of temporal and loudness properties within the video. To address these issues, we construct a controllable video-to-audio synthesis model, termed Draw an Audio, which supports multiple input instructions through drawn masks and loudness signals. To ensure content consistency between the synthesized audio and target video, we introduce the Mask-Attention Module (MAM), which employs masked video instruction to enable the model to focus on regions of interest. Additionally, we implement the Time-Loudness Module (TLM), which uses an auxiliary loudness signal to ensure the synthesis of sound that aligns with the video in both loudness and temporal dimensions. Furthermore, we have extended a large-scale V2A dataset, named VGGSound-Caption, by annotating caption prompts. Extensive experiments on challenging benchmarks across two large-scale V2A datasets verify Draw an Audio achieves the state-of-the-art.
+				</p>
+				</div>
+			</div>
+					</div>
+				</div>
+			</div>
+				</section>  -->
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="inner">
+                <div class="text">
+                    <div class="wrapper style1 align-center">
+
+                        <h2>Visualization</h2>
+
+                        <img src="images/visualization.png" alt="Overview." style="width: 50%;">
+                        <div class="wrapper style1 align-center" style="width: 50%; margin: 0 auto;">
+                            <p class="title is-4 has-text-centered">
+                                Vanilla Foley v.s. Draw an Audio. The traditional methods produce the entire audio only from video inputs, demonstrating limitations in controllability and flexibility. Draw an Audio, in contrast, offers a more appealing alternative that employs multiple instructions to produce high-quality synchronized audio and can produce mixed audio in multi-stages, thereby exhibiting greater practical application.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	<section class="section">
+        <div class="container is-max-desktop">
+            <div class="inner">
+                <div class="text">
+                    <div class="wrapper style1 align-center">
+
+                        <h2>Architecture</h2>
+
+                        <img src="images/framework.png" alt="Overview." style="width: 50%;">
+                        <div class="wrapper style1 align-center" style="width: 50%; margin: 0 auto;">
+                            <p class="title is-4 has-text-centered">
+                                The architecture of Draw an Audio, which incorporates a Latent Diffusion Model (LDM) as the foundational model, a Text Condition Model for text instruction, a Masked-Attention Module (MAM) for video instruction, a Time-Loudness Module (TLM) for signal instruction.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- unconidtional generation -->
+    <section class="wrapper style1 align-center">
+        <div class="inner">
+            <h2>Demos</h2>
+            <p><strong>It is recommended to use earphones to hear the demos videos, raise the volume and zoom in the videos.</strong>
+                <br>
+        </div>
+        <div class="container has-text-centered">
+            <!-- <h2 class="title is-2">unconditional generation</h2> -->
+            <div id="results-carousel" class="carousel results-carousel">
+                <div>
+                    <div class="results-item">
+
+
+                        <div class="video">
+                            <h3 class="title is-4 has-text-centered">Draw an Audio</h3>
+                            <class="video">
+                                <video controls class="html-video" width="50%" class="full-width">
+                                    <source src="./videos/all/Draw_An_Audio_SUV_in_dust_by_SORA.mp4" type="video/mp4">
+                                </video>
+                                <h4 class="title is-5 has-text-centered">The car roared across the sand. (Video from sora)</h4>
+							
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                
+
+                <div class="results-item">
+                    <div class="items style1 medium">
+                        <div class="video-pair">
+                            <h3>Ground Truth</h3>
+                            <class="video">
+                                <video controls class="html-video" class="html-video" width="100%" class="full-width">
+                                    <source src="./videos/all/GT_Play_Guitar.mp4" type="video/mp4">
+                                </video>
+
+                        </div>
+                        <div class="video-pair">
+                            <h3>Draw an Audio</h3>
+
+                            <class="video">
+                                <video controls class="html-video" class="html-video" width="100%" class="full-width">
+                                    <source src="./videos/all/Draw_An_Audio_Play_Guitar.mp4" type="video/mp4">
+                                </video>
+                                <h4> A man is playing an acoustic guitar while singing, and his left hand is seen strumming the strings. </h4>
+
+                        </div>
+                    </div>
+                </div>
+
+				<div class="results-item">
+                    <div class="items style1 medium">
+                        <div class="video-pair">
+                            <h3>Ground Truth</h3>
+                            <class="video">
+                                <video controls class="html-video" class="html-video" width="100%" class="full-width">
+                                    <source src="./videos/all/GT_Car_Engine.mp4" type="video/mp4">
+                                </video>
+
+                        </div>
+                        <div class="video-pair">
+                            <h3>Draw an Audio</h3>
+
+                            <class="video">
+                                <video controls class="html-video" class="html-video" width="100%" class="full-width">
+                                    <source src="./videos/all/Draw_An_Audio_Car_Engine.mp4" type="video/mp4">
+                                </video>
+                                <h4> A car passes by with roared. </h4>
+
+                        </div>
+                    </div>
+                </div>
+
+        
+
+
+            
+
+				<div class="results-item">
+                    <div class="items style1 medium">
+                        <div class="video-pair">
+                            <h3>Ground Truth</h3>
+                            <class="video">
+                                <video controls class="html-video" class="html-video" width="100%" class="full-width">
+                                    <source src="./videos/all/GT_The_Matrix.mp4" type="video/mp4">
+                                </video>
+
+                        </div>
+                        <div class="video-pair">
+                            <h3>Draw an Audio</h3>
+
+                            <class="video">
+                                <video controls class="html-video" class="html-video" width="100%" class="full-width">
+                                    <source src="./videos/all/Draw_An_Audio_The_Matrix.mp4" type="video/mp4">
+                                </video>
+                                <h4> The sound of bullets firing and bullets tearing through the air. </h4>
+
+                        </div>
+                    </div>
+                </div>
+
+				<div class="results-item">
+                    <div class="items style1 medium">
+                        <div class="video-pair">
+                            <h3>Ground Truth</h3>
+                            <class="video">
+                                <video controls class="html-video" class="html-video" width="100%" class="full-width">
+                                    <source src="./videos/all/GT_Diving.mp4" type="video/mp4">
+                                </video>
+
+                        </div>
+                        <div class="video-pair">
+                            <h3>Draw an Audio</h3>
+
+                            <class="video">
+                                <video controls class="html-video" class="html-video" width="100%" class="full-width">
+                                    <source src="./videos/all/Draw_An_Audio_Diving.mp4" type="video/mp4">
+                                </video>
+                                <h4> People wearing snorkeling gear, swimming, and interacting with fish under the sea. </h4>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+
+	<section class="wrapper style1 align-center">
+        <div class="inner">
+            <h2>Multiple Instruction Videos</h2>
+            <p><strong>It is recommended to use earphones to hear the demos videos, raise the volume and zoom in the videos.</strong>
+              
+        </div>
+
+			<div class="items style2 small">
+				<section>
+					<h3>Generated Audio1</h3>
+				</section>
+				<section>
+					<h3>Generated Audio2</h3>
+				</section>
+				<section>
+					<h3>Mixed Audio</h3>
+				</section>
+			</div>
+			
+	
+			<div class="items style3 small">
+				<section>
+					<span class="video">
+						<video controls class="html-video" width=100% height=auto>
+							<source src="videos/mixedvideo/Audio2_Otter_on_a_surfboard_speak.mp4" type="video/mp4">
+						</video>
+					</span>
+					<p>The little squirrel is smiling and speaking to us.</p>
+				</section>
+				<section>
+					<span class="video">
+						<video controls class="html-video" width=100% height=auto>
+							<source src="videos/mixedvideo/Audio1_Otter_on_a_surfboard_seawave.mp4" type="video/mp4">
+						</video>
+					</span>
+					<p>The sound of river waves.</p>
+				</section>
+				<section>
+					<span class="video">
+						<video controls class="html-video" width=100% height=auto>
+							<source src="videos/mixedvideo/AudioMix_Otter_on_a_surfboard_seawave_and_speak.mp4" type="video/mp4">
+						</video>
+					</span>
+					<p>(Video from Sora)</p>
+				</section>
+			</div>
+		
+
+
+
+    <!-- /unconidtional generation -->
+    <section class="wrapper style1 align-center">
+        <div class="inner">
+            <h2>Comparison with other methods</h2>
+            <p><strong>It is recommended to use earphones to hear the demos videos, raise the volume and zoom in the videos.</strong>
+              
+        </div>
+        <div class="items style1 small">
+            <section>
+                <h3>Ground Truth</h3>
+            </section>
+            <section>
+                <h3>SpecVQGAN</h3>
+            </section>
+            <section>
+                <h3>Diff-Foley</h3>
+            </section>
+            <section>
+                <h3>Instruction-Foley (Ours)</h3>
+            </section>
+        </div>
+
+        <div class="items style1 small">
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video1/KKFdi5WQ0V0_000256_gt.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p>The train moving down the tracks, the train horn being blown, and the traffic lights changing colors, all of which contribute to the overall soundscape of the scene.</p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video1/KKFdi5WQ0V0_000256_SpecVQGAN.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video1/KKFdi5WQ0V0_000256_diff_foley.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video1/KKFdi5WQ0V0_000256_ours.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+        </div>
+
+        <div class="items style1 small">
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video2/WHPs1ypOoNc_000327_gt.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p>The ball being hit by a baseball bat, the players running and shouting during the game, and the movements of the players on the field.</p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video2/WHPs1ypOoNc_000327_SpecVQGAN.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video2/WHPs1ypOoNc_000327_diff_foley.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video2/WHPs1ypOoNc_000327_ours.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+        </div>
+
+        <div class="items style1 small">
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video3/105947_gt.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p>A goat vocalizing softly and then screaming loudly.</p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video3/105947_SpecVQGAN.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video3/105947_diff_foley.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video3/105947_ours.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+        </div>
+
+        <div class="items style1 small">
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video4/107082_gt.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p>Crickets chirping very loudly.</p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video4/107082_SpecVQGAN.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video4/107082_diff_foley.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video4/107082_ours.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+        </div>
+
+        <div class="items style1 small">
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video5/106051_gt.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p>A helicopter is taking flight with the blades slapping.</p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video5/106051_SpecVQGAN.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video5/106051_diff_foley.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video5/106051_ours.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+        </div>
+
+        <div class="items style1 small">
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video6/105938_gt.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p>Camera muffling and wind blowing into a microphone as a vehicle engine runs while idle.</p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video6/105938_SpecVQGAN.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video6/105938_diff_foley.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video6/105938_ours.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+        </div>
+
+
+        <div class="items style1 small">
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video7/AWdrtR8qXYs_000260_gt.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p>A man is playing the violin in front of a crowd, and another man is playing the cello, both of them producing sound through their instruments as they perform for the audience.</p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video7/AWdrtR8qXYs_000260_SpecVQGAN.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video7/AWdrtR8qXYs_000260_diff_foley.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+            <section>
+                <span class="video">
+                    <video controls class="html-video" width=100% height=auto>
+                        <source src="videos/video7/AWdrtR8qXYs_000260_ours.mp4" type="video/mp4">
+                    </video>
+                </span>
+                <p></p>
+            </section>
+        </div>
+
+
+
+
+
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.scrollex.min.js"></script>
+        <script src="assets/js/jquery.scrolly.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+
+</body>
+
+
+
+<script type="text/javascript" src="./assets/slick/slick.min.js"></script>
+
+</body>
+
+</html>
